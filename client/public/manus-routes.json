@@ -1,0 +1,13 @@
+{
+  "routes": [
+    { "path": "/", "title": "Overview" },
+    { "path": "/world", "title": "World model" },
+    { "path": "/events", "title": "Events" },
+    { "path": "/intelligence", "title": "Intelligence" },
+    { "path": "/entities", "title": "Entities" },
+    { "path": "/obligations", "title": "Obligations" },
+    { "path": "/actions", "title": "Actions" },
+    { "path": "/evidence", "title": "Evidence" },
+    { "path": "/settings", "title": "Workspace settings" }
+  ]
+}

@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Operant linked evidence nodes">
+  <rect width="512" height="512" fill="#153C36"/>
+  <g fill="none" stroke="#AFC7B7" stroke-width="30" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M144 258 251 145 365 258 258 369Z"/>
+  </g>
+  <circle cx="144" cy="258" r="51" fill="#F5F3EC"/>
+  <circle cx="251" cy="145" r="43" fill="#AFC7B7"/>
+  <circle cx="365" cy="258" r="51" fill="#F5F3EC"/>
+  <circle cx="258" cy="369" r="43" fill="#B77D3D"/>
+  <circle cx="255" cy="258" r="24" fill="#153C36"/>
+</svg>
