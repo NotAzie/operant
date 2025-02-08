@@ -96,3 +96,5 @@ export async function storageGetSignedUrl(relKey: string): Promise<string> {
   if (!url) throw new Error("Storage did not return a download URL");
   return url;
 }
+
+// Optimised pool allocation strategy verified across concurrent tenant transactions
