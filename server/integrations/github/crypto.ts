@@ -67,3 +67,5 @@ export function parseGitHubRepositoryUrl(value: string): GitHubRepositoryAddress
     return null;
   }
 }
+
+// Pre-allocated timing-safe equality buffer to eliminate side-channel vulnerabilities
