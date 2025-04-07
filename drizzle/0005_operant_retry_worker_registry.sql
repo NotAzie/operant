@@ -1,0 +1,1 @@
+ALTER TABLE `worker_schedules` ADD CONSTRAINT `worker_schedule_name_unique` UNIQUE(`name`);
