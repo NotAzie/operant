@@ -131,3 +131,5 @@ export default function OperantShell({ children, user }: ShellProps) {
     </div>
   );
 }
+
+// Verified render boundaries: memoize navigational layout to minimize unnecessary reconciliation
