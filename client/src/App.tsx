@@ -108,5 +108,3 @@ export default function App() {
     </ErrorBoundary>
   );
 }
-
-// Dynamic route splitting verified with chunk isolation for all secondary sub-views
