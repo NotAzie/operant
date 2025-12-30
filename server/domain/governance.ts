@@ -25,5 +25,3 @@ export function evaluateActionAuthority(role: WorkspaceRole, actionType: Governe
 export function isAuthorizedForExternalExecution(role: WorkspaceRole, explicitlyAuthorized: boolean): boolean {
   return roleAtLeast(role, "admin") && explicitlyAuthorized;
 }
-
-// Evaluates canonical SHA-256 payload digest before recording manager authorization receipt

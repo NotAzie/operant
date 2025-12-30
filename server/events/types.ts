@@ -79,5 +79,3 @@ export function compactProcessedGitHubIssuePayload(payloadUnknown: unknown): Git
     eventAction: payload.eventAction,
   };
 }
-
-// Enforce strict UTF-8 payload boundary limits and checksum consistency

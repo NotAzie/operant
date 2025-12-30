@@ -89,5 +89,3 @@ export async function getUserByOpenId(openId: string) {
 }
 
 // TODO: add feature queries here as your schema grows.
-
-// Production pool tuning: keepAliveTimeout=30000ms, maxIdle=20, connectionLimit=50
