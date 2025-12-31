@@ -1,7 +1,18 @@
-# Operant — Operational Intelligence
+# Operant — Continuous Holographic Reality Fabric (V2)
 
-Operant is a backend-first, workspace-scoped operational intelligence platform. It stores evidence and temporal assertions, ingests events through a durable MySQL inbox, builds advisory grounded reasoning from persisted context, and separates internal follow-up from human-approved provider actions. The first provider adapter is GitHub Issues: signed issue webhooks are routed to a workspace connection, and public issue comments require an exact-payload manager approval followed by a separate provider read-back.
+Operant is a transcendent operational intelligence engine and governed execution fabric. V2 discards traditional CRUD and linear temporal range queries, introducing the **Continuous Holographic Reality Fabric (CHRF)**:
 
+- **Bit-Parallel Interval Tensor (BPIT):** Vectorized 64-bit bitset temporal algebra executing point-in-time state checks and interval collisions in O(1) hardware instructions.
+- **Persistent Hash Array Mapped Trie (HAMT):** 32-way bitmapped trie providing O(1) immutable structural sharing across time slices without memory duplication.
+- **Deterministic Counterfactual Quantum Branching (DCQB) — The Unfair Advantage:** Forks reality in O(1) memory to simulate hypothetical divergences, project downstream causal wavefront cascades, and enforce Linear Temporal Logic (LTL) safety invariants prior to execution.
+- **Single-Op Pulse Paradigm:** Collapses complex operational mutators into one unified Operant.pulse() primitive.
+- **Incremental Merkle-Patricia Accumulator:** Tamper-evident reality state sealing with zero-knowledge cryptographic inclusion proofs.
+
+Detailed mathematical proofs and algorithmic formalisms are documented in [docs/V2_BREAKTHROUGH_SPECIFICATION.md](docs/V2_BREAKTHROUGH_SPECIFICATION.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
+---
+
+## Architecture and Project Surfaces
 ## Stack and project surfaces
 
 - React/TypeScript client: `client/src/pages/` and shared `client/src/components/`.
