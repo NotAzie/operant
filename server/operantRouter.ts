@@ -7,6 +7,7 @@ import { operantEventsRouter } from "./events/router";
 import { operantGitHubRouter } from "./integrations/github/router";
 import { operantDomainRouter } from "./domain/router";
 import { operantReasoningRouter } from "./intelligence/router";
+import { operantV2Router } from "./v2/router";
 
 export const operantRouter = router({
   workspace: operantWorkspaceRouter,
@@ -17,4 +18,5 @@ export const operantRouter = router({
   integrations: router({ github: operantGitHubRouter }),
   world: operantDomainRouter,
   reasoning: operantReasoningRouter,
+  v2: operantV2Router,
 });
