@@ -2,13 +2,25 @@
  * Operant V2 Reality Kernel — Bit-Parallel Interval Tensor (BPIT)
  *
  * Replaces traditional database temporal range scans and pairwise comparisons
- * with vectorized 64-bit bitset operations. Enables O(1) point-in-time state checks
- * and O(1) word-level interval collision verification.
+ * with vectorized 64-bit bitset operations. Enables O(1) point-in-time state checks,
+ * O(1) word-level interval collision verification, and constant-cycle parallel popcount.
  */
 
 export interface EpochRange {
   startEpoch: number;
-  endEpoch: number; // Inclusive or exclusive depending on half-open semantics
+  endEpoch: number;
+}
+
+function popcnt32(v: number): number {
+  v = v - ((v >>> 1) & 0x55555555);
+  v = (v & 0x33333333) + ((v >>> 2) & 0x33333333);
+  return (((v + (v >>> 4)) & 0x0f0f0f0f) * 0x01010101) >>> 24;
+}
+
+function popcnt64(x: bigint): number {
+  const low = Number(BigInt.asUintN(32, x));
+  const high = Number(BigInt.asUintN(32, x >> 32n));
+  return popcnt32(low) + popcnt32(high);
 }
 
 export class Bitset64 {
@@ -71,10 +83,6 @@ export class Bitset64 {
     }
   }
 
-  /**
-   * O(1) per word bitwise intersection.
-   * Returns true if there is any shared temporal epoch between the two bitsets.
-   */
   public intersects(other: Bitset64): boolean {
     const len = Math.min(this.words.length, other.words.length);
     for (let i = 0; i < len; i++) {
@@ -82,7 +90,6 @@ export class Bitset64 {
         return true;
       }
     }
-    // If either is unbounded and the other extends beyond length
     if (this.isUnboundedEnd && other.isUnboundedEnd) {
       return true;
     }
@@ -90,15 +97,13 @@ export class Bitset64 {
   }
 
   /**
-   * Vectorized population count: counts total active temporal epochs in constant word time.
+   * O(1) per word population count using 32-bit parallel SWAR popcount.
    */
   public activeEpochCount(): number {
     let count = 0;
     for (const w of this.words) {
-      let temp = w;
-      while (temp > 0n) {
-        count += Number(temp & 1n);
-        temp >>= 1n;
+      if (w > 0n) {
+        count += popcnt64(w);
       }
     }
     return count;
@@ -115,10 +120,6 @@ export class Bitset64 {
   }
 }
 
-/**
- * High-performance bit-parallel reality tensor holding multiple assertion timelines
- * indexed by attribute key.
- */
 export class BitParallelRealityTensor {
   private tensors: Map<string, Map<string | number, Bitset64>> = new Map();
 
@@ -138,9 +139,6 @@ export class BitParallelRealityTensor {
     group.set(assertionId, bitset);
   }
 
-  /**
-   * O(1) query checking if an assertion was valid at a specific temporal epoch.
-   */
   public isAssertionActiveAt(
     targetKey: string,
     assertionId: string | number,
@@ -152,10 +150,6 @@ export class BitParallelRealityTensor {
     return bitset ? bitset.hasBit(epoch) : false;
   }
 
-  /**
-   * Detects all collisions against an incoming interval in O(K) word time where K is
-   * the number of concurrent assertions on that target, completely skipping disk scans.
-   */
   public findCollisions(
     targetKey: string,
     startEpoch: number,
