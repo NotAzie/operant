@@ -4,6 +4,7 @@ import { Link } from "wouter";
 import { trpc } from "@/lib/trpc";
 import { EmptyState, FormField, PageHeader, Panel, StatusChip } from "@/components/OperantShell";
 import { useWorkspace } from "@/components/WorkspaceContext";
+import { CounterfactualSimulatorPanel } from "@/components/CounterfactualSimulatorPanel";
 
 const localInput = (date = new Date()) => { const offset = date.getTimezoneOffset(); return new Date(date.getTime() - offset * 60_000).toISOString().slice(0, 16); };
 const getText = (form: FormData, name: string) => String(form.get(name) ?? "").trim();
@@ -89,6 +90,9 @@ export default function WorldModel() {
       <form className="asof-controls" onSubmit={submitTimes}><FormField label="Knowledge as of"><input type="datetime-local" value={knowledgeInput} onChange={(event) => setKnowledgeInput(event.target.value)} /></FormField><FormField label="Effective at"><input type="datetime-local" value={validInput} onChange={(event) => setValidInput(event.target.value)} /></FormField><button className="button button-primary" type="submit"><Clock3 size={14} /> Reconstruct</button></form>
       <div className="asof-stamp"><span>Knowledge time: <strong>{dateText(world.data?.knowledgeAsOf)}</strong></span><span>Valid time: <strong>{dateText(world.data?.validAt)}</strong></span><StatusChip tone="info">No silent value selection</StatusChip></div>
     </Panel>
+    <div className="my-6">
+      <CounterfactualSimulatorPanel workspaceId={workspaceId ?? 0} />
+    </div>
     {world.data && !world.data.completeness.complete && <div className="inline-error page-error" role="alert"><AlertTriangle size={15} /> Partial reconstruction: row caps were exceeded for {world.data.completeness.truncatedCollections.join(", ")}. Some records or history may be omitted; do not treat this view as a complete workspace snapshot or decision basis. Full pagination is not yet available.</div>}
     <div className="metric-grid world-metrics">{[["Entities", world.data?.counts.entities], ["Facts", world.data?.counts.facts], ["Assertions", world.data?.counts.assertions], ["Resources", world.data?.counts.resources], ["Allocations", world.data?.counts.allocations], ["Assignments", world.data?.counts.responsibilities]].map(([label, value]) => <Panel className="metric-card" key={String(label)}><span className="metric-icon"><Link2 size={16} /></span><small>{label}</small><strong>{value ?? "—"}</strong><span>At the selected knowledge/effective times</span></Panel>)}</div>
 
