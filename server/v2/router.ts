@@ -2,7 +2,8 @@
  * Operant V2 Radical Single-Op tRPC Router
  *
  * Exposes the next-generation pulse paradigm, bit-parallel time-travel checks,
- * and deterministic counterfactual quantum branching to client workspaces.
+ * deterministic counterfactual quantum branching, autonomous remediation,
+ * and wavelet entropy forecasting to client workspaces.
  */
 
 import { z } from 'zod';
@@ -65,5 +66,28 @@ export const operantV2Router = router({
       });
 
       return simulation;
+    }),
+
+  forecastEntropy: protectedProcedure
+    .input(
+      z.object({
+        workspaceId: z.union([z.string(), z.number()]),
+        horizonEpochs: z.number().default(10),
+      })
+    )
+    .query(async ({ input }) => {
+      return engine.forecastEntropy(input.horizonEpochs);
+    }),
+
+  getFederationStatus: protectedProcedure
+    .input(
+      z.object({
+        workspaceId: z.union([z.string(), z.number()]),
+      })
+    )
+    .query(async () => {
+      return {
+        vectorClock: engine.getVectorClock(),
+      };
     }),
 });
